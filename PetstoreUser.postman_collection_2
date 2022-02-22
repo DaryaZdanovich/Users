@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "074004eb-bb0b-453c-bc8d-e4046fe78aeb",
+		"name": "PetstoreUser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CRUD.user",
+			"item": [
+				{
+					"name": "CREATE",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"user_id\", _.random(1,1000));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response ID the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"{{user_id}}\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{user_id}},\r\n  \"username\": \"string\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"email\": \"string\",\r\n  \"password\": \"string\",\r\n  \"phone\": \"string\",\r\n  \"userStatus\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response ID the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"{{user_id}}\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/{{user_name}}",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"{{user_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response ID the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"{{user_id}}\"));\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response ID the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.username).to.eql(pm.environment.get(\"{{user_name}}\"));\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response firstName the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.firstName).to.eql(pm.environment.get(\"{{first_name}}\"));\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response lastName the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.lastName).to.eql(pm.environment.get(\"{{last_name}}\"));\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response email the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"{{user_email}}\"));\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response password the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.password).to.eql(pm.environment.get(\"{{user_password}}\"));\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Response phone the same as in environment\", function () {\r",
+									"    pm.expect(jsonData.phone).to.eql(pm.environment.get(\"{{user_phone}}\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"user_id\", _.random(1,1000));\r",
+									"var name = pm.variables.replaceIn(\"{{$randomUserName}}\");\r",
+									"    pm.environment.set(\"user_name\",name);\r",
+									"var firstName = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+									"    pm.environment.set(\"first_name\",firstName);\r",
+									"var lastName = pm.variables.replaceIn(\"{{$randomLastName}}\");\r",
+									"    pm.environment.set(\"last_name\",lastName);\r",
+									"var email = pm.variables.replaceIn(\"{{$randomEmail}}\");\r",
+									"    pm.environment.set(\"user_email\",email);\r",
+									"var password = pm.variables.replaceIn(\"{{$randomPassword}}\");\r",
+									"    pm.environment.set(\"user_password\",password);\r",
+									"var phone = pm.variables.replaceIn(\"{{$randomPhoneNumber}}\");\r",
+									"    pm.environment.set(\"user_phone\",phone);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{user_id}},\r\n  \"username\": \"{{user_name}}\",\r\n  \"firstName\": \"{{first_name}}\",\r\n  \"lastName\": \"{{last_name}}\",\r\n  \"email\": \"{{user_email}}\",\r\n  \"password\": \"{{user_password}}\",\r\n  \"phone\": \"{{user_phone}}\",\r\n  \"userStatus\": 2525\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/{{user_id}}",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/{{user_name}}",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"{{user_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/{{user_name}}",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"{{user_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://petstore.swagger.io/v2/user/{{user_name}}",
+							"protocol": "https",
+							"host": [
+								"petstore",
+								"swagger",
+								"io"
+							],
+							"path": [
+								"v2",
+								"user",
+								"{{user_name}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
